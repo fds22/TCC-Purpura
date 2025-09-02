@@ -1,3 +1,12 @@
+<?php
+session_start();
+// Verifica se o usuário está logado
+if(!isset($_SESSION['usuario_id'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,6 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Púrpura - Roupas Femininas</title>
     <link rel="stylesheet" href="homemstyle.css">
+    <link rel="stylesheet" href="../html/css/style.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="shortcut icon" href="css/img/logo.png" type="image/x-icon">
 </head>
@@ -17,18 +28,24 @@
         <nav>
             <ul class="menu">
                 <li><a href="../html/index.php">Início</a></li>
-                <li><a href="../feminina_controller/femenina.html">Mulher</a></li>
-                <li><a href="../homem_controller/homem.html" class="active">Homem</a></li>
-                <li><a href="../acessorios_controller/acessorio.html">Acessórios</a></li>
+                <li><a href="../feminina_controller/femenina.php">Mulher</a></li>
+                <li><a href="../homem_controller/homem.php" class="active">Homem</a></li>
+                <li><a href="../acessorios_controller/acessorio.php">Acessórios</a></li>
                 <li><a href="../produtos_controller/produtos.php">Produtos</a></li>
-                <li><a href="../html/sobre.html">Sobre</a></li>
+                <li><a href="../html/sobre.php">Sobre</a></li>
             </ul>
         </nav>
         <div class="icons">
             <a href="../produtos_controller/produtos.php" class="icon"><i class="fas fa-search"></i></a>
-            <a href="../conta_controller/conta.html" class="icon"><i class="fas fa-user"></i></a>
-            <a href="../favoritos_controller/favoritos.html" class="icon"><i class="fas fa-heart"></i></a>
-            <a href="../carrinho_controller/carrinho.html" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            <a href="../conta_controller/conta.php" class="icon"><i class="fas fa-user"></i></a>
+            <a href="../favoritos_controller/favoritos.php" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="../carrinho_controller/carrinho.php" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+        </div>
+        <div class="user-info">
+            <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
+            <form action="../login/login.php" method="post">
+                <a href="../logout/logout.php" class="logout-btn">Sair</a>
+            </form>
         </div>
     </header>
 

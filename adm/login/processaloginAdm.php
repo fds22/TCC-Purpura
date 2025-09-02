@@ -7,7 +7,7 @@ $senha = $_POST['senha'] ?? '';
 
 $conexao = conectarBanco();
 
-$sql = "SELECT idUsuario, nome, senha FROM usuario WHERE email = ?";
+$sql = "SELECT idadm, nome, senha FROM adm WHERE email = ?";
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -19,7 +19,7 @@ if ($resultado->num_rows > 0) {
     $hashSalvo = $usuario['senha'];
 
 if ($email == 'adm@gmail.com' && password_verify($senha, $hashSalvo)) {
-    $_SESSION['adm_id'] = $usuario['idUsuario'];
+    $_SESSION['adm_id'] = $usuario['idadm'];
     $_SESSION['adm_nome'] = $usuario['nome'];
     header("Location: ../dashbord/dashbord.php");
     exit();

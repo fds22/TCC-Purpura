@@ -213,7 +213,7 @@ header {
             word-break: break-word;
         }
         
-        .logout-btn {
+.logout-btn {
             background-color: #e74c3c;
             color: white;
             border: none;
@@ -223,7 +223,7 @@ header {
             transition: background-color 0.3s;
         }
         
-        .logout-btn:hover {
+.logout-btn:hover {
             background-color: #c0392b;
         }
 

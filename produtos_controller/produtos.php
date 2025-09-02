@@ -22,6 +22,57 @@ $dadosProdutos = getProdutos($conexao, $paginaAtual);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script src="produto.js"></script>
+    <style>
+        /* Estilos para a paginação */
+        .paginacao-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .pagina-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f8f8f8;
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .pagina-link:hover {
+            background-color: #7e57c2;
+            color: white;
+        }
+
+        .pagina-link.active {
+            background-color: #7e57c2;
+            color: white;
+        }
+
+        .pagina-link.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .loading, .error {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #7e57c2;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -32,18 +83,25 @@ $dadosProdutos = getProdutos($conexao, $paginaAtual);
         <nav>
             <ul class="menu">
                 <li><a href="../html/index.php">Início</a></li>
-                <li><a href="../feminina_controller/femenina.html">Mulher</a></li>
-                <li><a href="../homem_controller/homem.html">Homem</a></li>
-                <li><a href="../acessorios_controller/acessorio.html">Acessórios</a></li>
+                <li><a href="../feminina_controller/femenina.php">Mulher</a></li>
+                <li><a href="../homem_controller/homem.php">Homem</a></li>
+                <li><a href="../acessorios_controller/acessorio.php">Acessórios</a></li>
                 <li><a href="../produtos_controller/produtos.php" class="active">Produtos</a></li>
-                <li><a href="../html/sobre.html">Sobre</a></li>
+                <li><a href="../html/sobre.php">Sobre</a></li>
             </ul>
         </nav>
         <div class="icons">
-            <a href="produtos.html" class="icon"><i class="fas fa-search"></i></a>
+            <a href="../produtos_controller/produtos.php" class="icon"><i class="fas fa-search"></i></a>
             <a href="../conta_controller/conta.php" class="icon"><i class="fas fa-user"></i></a>
-            <a href="favoritos.html" class="icon"><i class="fas fa-heart"></i></a>
-            <a href="carrinho.html" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            <a href="../favoritos_controller/favoritos.php" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="../carrinho_controller/carrinho.php" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+        </div>
+
+        <div class="user-info">
+            <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
+            <form action="../login/login.php" method="post">
+                <a href="../logout/logout.php" class="logout-btn">Sair</a>
+            </form>
         </div>
     </header>
 
@@ -104,7 +162,7 @@ $dadosProdutos = getProdutos($conexao, $paginaAtual);
 
         <div class="produtos-resultados">
             <div class="resultados-header">
-                <p>Exibindo <span id="produtos-exibindo">0</span> de <span id="total-produtos">0</span> produtos</p>
+                <p>Exibindo <span id="produtos-exibindo"><?= count($dadosProdutos['produtos']) ?></span> de <span id="total-produtos"><?= $dadosProdutos['totalProdutos'] ?></span> produtos</p>
                 <div class="view-options">
                     <button class="view-btn active"><i class="fas fa-th"></i></button>
                     <button class="view-btn"><i class="fas fa-list"></i></button>
@@ -157,8 +215,38 @@ $dadosProdutos = getProdutos($conexao, $paginaAtual);
                 <?php endforeach; ?>
             </div>
             
-            <div class="paginacao"id="paginacao">
-                
+            <div class="paginacao" id="paginacao">
+                <?php if ($dadosProdutos['totalPaginas'] > 1): ?>
+                    <div class="paginacao-container">
+                        <?php if ($dadosProdutos['paginaAtual'] > 1): ?>
+                            <a href="?pagina=<?= $dadosProdutos['paginaAtual'] - 1 ?>" class="pagina-link">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        <?php else: ?>
+                            <span class="pagina-link disabled">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                        <?php endif; ?>
+                        
+                        <?php for ($i = 1; $i <= $dadosProdutos['totalPaginas']; $i++): ?>
+                            <?php if ($i == $dadosProdutos['paginaAtual']): ?>
+                                <span class="pagina-link active"><?= $i ?></span>
+                            <?php else: ?>
+                                <a href="?pagina=<?= $i ?>" class="pagina-link"><?= $i ?></a>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                        
+                        <?php if ($dadosProdutos['paginaAtual'] < $dadosProdutos['totalPaginas']): ?>
+                            <a href="?pagina=<?= $dadosProdutos['paginaAtual'] + 1 ?>" class="pagina-link">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        <?php else: ?>
+                            <span class="pagina-link disabled">
+                                <i class="fas fa-chevron-right"></i>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -225,5 +313,45 @@ $dadosProdutos = getProdutos($conexao, $paginaAtual);
             <p>&copy; 2025 Púrpura - Todos os direitos reservados.</p>
         </div>
     </footer>
+    
+    <script>
+        // Navegação suave para a paginação
+        $(document).ready(function() {
+            $('.paginacao-container').on('click', '.pagina-link:not(.disabled, .active)', function(e) {
+                e.preventDefault();
+                const url = $(this).attr('href');
+                
+                if (url) {
+                    // Mostrar indicador de carregamento
+                    $('#produtos-grid').html('<div class="loading">Carregando produtos...</div>');
+                    
+                    // Fazer requisição AJAX para obter os produtos da página selecionada
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function(data) {
+                            // Extrair apenas a seção de produtos do HTML retornado
+                            const produtosHtml = $(data).find('#produtos-grid').html();
+                            const paginacaoHtml = $(data).find('#paginacao').html();
+                            const contagemHtml = $(data).find('.resultados-header p').html();
+                            
+                            // Atualizar o conteúdo
+                            $('#produtos-grid').html(produtosHtml);
+                            $('#paginacao').html(paginacaoHtml);
+                            $('.resultados-header p').html(contagemHtml);
+                            
+                            // Rolagem suave para o topo dos produtos
+                            $('html, body').animate({
+                                scrollTop: $('.produtos-resultados').offset().top - 100
+                            }, 500);
+                        },
+                        error: function() {
+                            $('#produtos-grid').html('<div class="error">Erro ao carregar produtos.</div>');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

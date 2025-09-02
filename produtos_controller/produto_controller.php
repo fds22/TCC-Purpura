@@ -1,7 +1,7 @@
 <?php
 require_once '../data/conexao.php';
 
-function getProdutos($conexao, $pagina = 1, $itensPorPagina = 16) {
+function getProdutos($conexao, $pagina = 1, $itensPorPagina = 6) {
     $offset = ($pagina - 1) * $itensPorPagina;
     
     // Query para os produtos da página atual

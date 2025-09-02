@@ -6,6 +6,7 @@
     <title>Meus Favoritos - Púrpura</title>
     <link rel="stylesheet" href="../html/css/style.css">
     <link rel="stylesheet" href="favoritosstyle.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="shortcut icon" href="css/img/logo.png" type="image/x-icon">
 </head>
@@ -18,18 +19,18 @@
         <nav>
             <ul class="menu">
                 <li><a href="../html/index.php" class="active">Início</a></li>
-                <li><a href="../feminina_controller/femenina.html">Mulher</a></li>
-                <li><a href="../homem_controller/homem.html">Homem</a></li>
-                <li><a href="../acessorios_controller/acessorio.html">Acessórios</a></li>
+                <li><a href="../feminina_controller/femenina.php">Mulher</a></li>
+                <li><a href="../homem_controller/homem.php">Homem</a></li>
+                <li><a href="../acessorios_controller/acessorio.php">Acessórios</a></li>
                 <li><a href="../produtos_controller/produtos.php">Produtos</a></li>
-                <li><a href="../html/sobre.html">Sobre</a></li>
+                <li><a href="../html/sobre.php">Sobre</a></li>
             </ul>
         </nav>
         <div class="icons">
             <a href="../produtos_controller/produtos.php" class="icon"><i class="fas fa-search"></i></a>
             <a href="../conta_controller/conta.php" class="icon"><i class="fas fa-user"></i></a>
-            <a href="../favoritos_controller/favoritos.html" class="icon"><i class="fas fa-heart"></i></a>
-            <a href="../carrinho_controller/carrinho.html" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            <a href="../favoritos_controller/favoritos.php" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="../carrinho_controller/carrinho.php" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
         </div>
     </header>
 

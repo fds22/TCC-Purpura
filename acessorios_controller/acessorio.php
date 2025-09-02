@@ -1,10 +1,21 @@
+<?php
+session_start();
+// Verifica se o usuário está logado
+if(!isset($_SESSION['usuario_id'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Púrpura - Roupas Femininas</title>
-    <link rel="stylesheet" href="femeninastyle.css">
+    <link rel="stylesheet" href="acessoriostyle.css">
+    <link rel="stylesheet" href="../html/css/style.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="shortcut icon" href="css/img/logo.png" type="image/x-icon">
 </head>
@@ -17,29 +28,42 @@
         <nav>
             <ul class="menu">
                 <li><a href="../html/index.php">Início</a></li>
-                <li><a href="../feminina_controller/femenina.html" class="active">Mulher</a></li>
-                <li><a href="../homem_controller/homem.html">Homem</a></li>
-                <li><a href="../acessorios_controller/acessorio.html">Acessórios</a></li>
+                <li><a href="../feminina_controller/femenina.php">Mulher</a></li>
+                <li><a href="../homem_controller/homem.php">Homem</a></li>
+                <li><a href="../acessorios_controller/acessorio.php" class="active">Acessórios</a></li>
                 <li><a href="../produtos_controller/produtos.php">Produtos</a></li>
-                <li><a href="../html/sobre.html">Sobre</a></li>
+                <li><a href="../html/sobre.php">Sobre</a></li>
             </ul>
         </nav>
         <div class="icons">
             <a href="../produtos_controller/produtos.php" class="icon"><i class="fas fa-search"></i></a>
-            <a href="../conta_controller/conta.html" class="icon"><i class="fas fa-user"></i></a>
-            <a href="../favoritos_controller/favoritos.html" class="icon"><i class="fas fa-heart"></i></a>
-            <a href="../carrinho_controller/carrinho.html" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            <a href="../conta_controller/conta.php" class="icon"><i class="fas fa-user"></i></a>
+            <a href="../favoritos_controller/favoritos.php" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="../carrinho_controller/carrinho.php" class="icon cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+        </div>
+        <div class="user-info">
+            <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
+            <form action="../login/login.php" method="post">
+                <a href="../logout/logout.php" class="logout-btn">Sair</a>
+            </form>
         </div>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h2>Moda Feminina</h2>
-            <p>Descubra nossas últimas coleções e encontre seu estilo</p>
+            <h2>Nova Coleção</h2>
+            <h3>OUTONO/INVERNO</h3>
+            <p>Descubra o poder do roxo na sua vida</p>
+            <a href="#" class="btn-primary">Comprar Agora</a>
         </div>
     </section>
     
     <main class="main-container">
+        <div class="page-title">
+            <h1>Acessórios</h1>
+            <p>Descubra nossas últimas coleções e encontre seu estilo</p>
+        </div>
+        
         <div class="products-grid">
             <!-- Produto 1 -->
             <div class="product-card">
@@ -47,8 +71,8 @@
                     <img src="/api/placeholder/300/250" alt="Vestido Elegante">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">Vestido Elegante</h3>
-                    <p class="product-price">R$ 199,90</p>
+                    <h3 class="product-title">Relógio Elegante</h3>
+                    <p class="product-price">R$ 300,90</p>
                     <button class="product-button">Adicionar ao Carrinho</button>
                 </div>
             </div>
@@ -59,7 +83,7 @@
                     <img src="/api/placeholder/300/250" alt="Blusa Casual">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">Blusa Casual</h3>
+                    <h3 class="product-title">Corrente de Ouro</h3>
                     <p class="product-price">R$ 89,90</p>
                     <button class="product-button">Adicionar ao Carrinho</button>
                 </div>

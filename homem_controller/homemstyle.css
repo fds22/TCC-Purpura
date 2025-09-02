@@ -199,9 +199,33 @@ header {
     font-weight: 600;
 }
 
+.user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            gap: 5px;
+            word-break: break-word;
+        }
+        
+.logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+.logout-btn:hover {
+            background-color: #c0392b;
+        }
+
 .hero {
     height: 600px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('img/banner-outono.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('img/banner-homem.jpeg') no-repeat center center/cover;
     background-size: cover;
     background-position: center;
     color: var(--white);
